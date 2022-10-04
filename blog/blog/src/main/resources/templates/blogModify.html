@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>게시물 작성 폼</title>
+</head>
+<style>
+  .layout {
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 40px;
+  }
+
+  .layout input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .layout textarea {
+    width : 100%;
+    margin-top : 10px;
+    min-height: 300px;
+  }
+</style>
+<script>
+  function checkPw() {
+    let pw1 = [[${blog.password}]];
+    let pw = document.getElementById('pw').value;
+    if (pw1 != pw) {
+      alert('Confirm Password');
+      return false;
+    }
+  }
+</script>
+<body>
+<div class="layout">
+  <form th:action="@{/blog/update/{id}(id=${blog.id})}" method="post" onsubmit="return checkPw()">
+    <input name="title" type="text" th:value="${blog.title}">
+    <input name="writer" type="text" th:value="${blog.writer}">
+    <textarea name="content" th:text="${blog.content}"></textarea>
+    <input name="password" type="text" id="pw">
+    <button type="submit">수정</button>
+  </form>
+</div>
+</body>
+</html>

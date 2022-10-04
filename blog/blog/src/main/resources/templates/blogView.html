@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 상세 페이지</title>
+</head>
+<script>
+    function checkPw() {
+        let pw1 = [[${blog.password}]];
+        let pw = document.getElementById('pw').value;
+        if (pw1 != pw) {
+            alert('Confirm Password');
+            return false;
+        } else{
+            alert('완료');
+            return true;
+        }
+    }
+</script>
+<body>
+<h1 th:text="${blog.title}"> 제목입니다.</h1>
+<p th:text="${blog.content}"> 내용입니다. </p>
+<p th:text="${blog.writer}"> 작성자 </p>
+<p th:text="${blog.getCreatedAt()}"> 작성 날짜 </p>
+<form th:action="@{/blog/delete(id=${blog.id})}" method="post" onsubmit="return checkPw()">
+    <button type="button" th:onclick="|location.href='@{/blog/modify/{id}(id=${blog.id})}'|"> 수정 </button>
+    <input name="password" type="text" id="pw">
+    <button type="submit"> 글 삭제 </button>
+</form>
+</body>
+</html>
